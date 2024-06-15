@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User info</title>
+</head>
+<body>
+<h1>User</h1>
+<p th:text="${user}"></p>
+<br><br>
+<div th:replace="logout :: logoutForm"></div>
+</body>
+</html>
