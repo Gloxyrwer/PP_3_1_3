@@ -5,8 +5,31 @@
     <title>User info</title>
 </head>
 <body>
-<h1>User</h1>
-<p th:text="${user}"></p>
+<h1>User info</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:object="${user}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstname}"></td>
+        <td th:text="${user.lastname}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.roles}"></td>
+    </tr>
+    </tbody>
+</table>
 <br><br>
 <div th:replace="logout :: logoutForm"></div>
 </body>

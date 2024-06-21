@@ -32,17 +32,10 @@ public class PostConstructClass {
         Set<Role> rolesForUser = new HashSet<>();
         rolesForUser.add(userRole);
 
-        User admin = new User();
-        admin.setUsername("admin");
-        admin.setPassword("admin");
-        admin.setRoles(rolesForAdmin);
+        User admin = new User("admin", "admin", (byte) 35, "admin@mail.ru", "admin", rolesForAdmin);
+        User user = new User("user", "user", (byte) 30, "user@mail.ru", "user", rolesForUser);
 
-        User user = new User();
-        user.setUsername("user");
-        user.setPassword("user");
-        user.setRoles(rolesForUser);
-
-        userService.saveUser(admin, rolesForAdmin);
-        userService.saveUser(user, rolesForUser);
+        userService.saveUser(admin);
+        userService.saveUser(user);
     }
 }

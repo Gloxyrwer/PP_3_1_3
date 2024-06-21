@@ -20,45 +20,40 @@ public class AdminController {
     }
 
     @GetMapping
-    public String adminPage(Model model) {
-        log.info("Show admin page");
+    public String showAdminForm(Model model) {
+        log.info("Show admin form");
         model.addAttribute("users", userService.getAllUsers());
         return "admin";
     }
 
     @GetMapping("/add")
-    public String showCreateForm() {
+    public String showCreateForm(Model model) {
         log.info("Show create form");
+        model.addAttribute("user", new User());
+        model.addAttribute("allRoles", userService.getAllRoles());
         return "admin-createUser";
-    }
-
-    @PostMapping("/add")
-    public String createUser(@ModelAttribute("user") User user) {
-        log.info("Creating user: {}", user);
-        userService.saveUser(user);
-        log.info("User created: {}", user);
-        return "redirect:/admin";
     }
 
     @GetMapping("/update")
     public String showUpdateForm(@RequestParam("id") long id, Model model) {
-        log.info("Show update form with id: {}", id);
+        log.info("Show update form");
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("allRoles", userService.getAllRoles());
         return "admin-updateUser";
     }
 
-    @PostMapping("/update")
-    public String updateUser(@ModelAttribute("user") User user) {
-        log.info("Updating user: {}", user);
-        userService.updateUser(user);
-        log.info("User updated: {}", user);
+    @PostMapping({"/add", "/update"})
+    public String saveUser(@ModelAttribute("user") User user) {
+        log.info("Saving user: {}", user);
+        userService.saveUser(user);
+        log.info("User saved: {}", user);
         return "redirect:/admin";
     }
 
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("id") long id) {
         log.info("Deleting user with id: {}", id);
-        userService.deleteUser(id);
+        userService.deleteUser(userService.getUserById(id));
         log.info("User deleted: {}", id);
         return "redirect:/admin";
     }
